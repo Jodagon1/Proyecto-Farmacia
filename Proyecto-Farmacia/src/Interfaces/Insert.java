@@ -7,7 +7,12 @@
 package Interfaces;
 
 import Items.JPanelColor;
+import Pojo.Producto;
+import java.awt.event.KeyEvent;
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +26,7 @@ public class Insert extends javax.swing.JFrame {
     public Insert() {
         initComponents();
         ImageIcon im = new ImageIcon(this.getClass().getResource("/Imagen/Farmacia.jpg"));
-        setIconImage(im.getImage());
+        setIconImage(im.getImage());        
     }
 
     /**
@@ -38,22 +43,44 @@ public class Insert extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        Codigo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField(7);
+        Producto = new javax.swing.JTextField(7);
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField(7);
+        Cantidad = new javax.swing.JTextField(7);
         jPanel8 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        Precio = new javax.swing.JTextField(7);
+        jLabel6 = new javax.swing.JLabel();
+        Marca = new javax.swing.JTextField(7);
+        jPanel12 = new javax.swing.JPanel();
+        Forma = new javax.swing.JComboBox();
+        Vias = new javax.swing.JComboBox();
+        Tipo = new javax.swing.JComboBox();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Descripcion = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
+        Insertar = new javax.swing.JButton();
+        Clean = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1 = new JPanelColor("/Imagen/Fondo.jpg");
         jPanel1.setLayout(new java.awt.BorderLayout());
+        if(deshacer == null){
+            jButton2.setEnabled(false);
+        }
 
         jPanel2.setOpaque(false);
         jPanel2.setLayout(new java.awt.GridLayout(3, 0));
@@ -64,82 +91,218 @@ public class Insert extends javax.swing.JFrame {
         jPanel7Layout.rowHeights = new int[] {0};
         jPanel7.setLayout(jPanel7Layout);
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Codigo:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         jPanel7.add(jLabel1, gridBagConstraints);
 
-        jLabel2.setText("000000");
+        Codigo.setForeground(new java.awt.Color(255, 255, 255));
+        Codigo.setText("000000");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        jPanel7.add(jLabel2, gridBagConstraints);
+        jPanel7.add(Codigo, gridBagConstraints);
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Producto:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
         jPanel7.add(jLabel3, gridBagConstraints);
 
-        jTextField1.setText("jTextField1");
-        jTextField1.setText("");
+        Producto.setText("jTextField1");
+        Producto.setText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
-        jPanel7.add(jTextField1, gridBagConstraints);
+        jPanel7.add(Producto, gridBagConstraints);
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Cantidad:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
         jPanel7.add(jLabel4, gridBagConstraints);
 
-        jTextField2.setText("jTextField2");
-        jTextField2.setText("");
+        Cantidad.setText("jTextField2");
+        Cantidad.setText("");
+        Cantidad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                CantidadFocusLost(evt);
+            }
+        });
+        Cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CantidadKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;
-        jPanel7.add(jTextField2, gridBagConstraints);
+        jPanel7.add(Cantidad, gridBagConstraints);
 
         jPanel2.add(jPanel7);
 
         jPanel8.setOpaque(false);
+        jPanel8.setLayout(new java.awt.GridLayout(2, 0));
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 443, Short.MAX_VALUE)
+        jPanel3.setOpaque(false);
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Precio:");
+
+        Precio.setText("jTextField3");
+        Precio.setText("");
+        Precio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                PrecioFocusLost(evt);
+            }
+        });
+        Precio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PrecioKeyTyped(evt);
+            }
+        });
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Marca:");
+
+        Marca.setText("jTextField4");
+        Marca.setText("");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 427, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(0, 87, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addGap(23, 23, 23)
+                    .addComponent(Precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(22, 22, 22)
+                    .addComponent(jLabel6)
+                    .addGap(23, 23, 23)
+                    .addComponent(Marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 88, Short.MAX_VALUE)))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 93, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(3, 3, 3)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6))))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
+
+        jPanel8.add(jPanel3);
+
+        jPanel12.setOpaque(false);
+        java.awt.GridBagLayout jPanel12Layout1 = new java.awt.GridBagLayout();
+        jPanel12Layout1.columnWidths = new int[] {0, 50, 0, 50, 0, 50, 0};
+        jPanel12Layout1.rowHeights = new int[] {0};
+        jPanel12.setLayout(jPanel12Layout1);
+
+        Forma.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Forma.removeAllItems();
+        Forma.addItem("Forma");
+        Forma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FormaActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        jPanel12.add(Forma, gridBagConstraints);
+
+        Vias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Vias.removeAllItems();
+        String [] v = {"Oral","Intramuscular","Intravenosa","Subcutánea","Inhalatoria","Transdermica","Nasal","Oftalmica",
+            "Ótica","Tópica","Rectal","Vaginal"};
+        Vias.addItem("Vias de administracion");
+        for(String s: v){
+            Vias.addItem(s);
+        }
+        Vias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ViasActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanel12.add(Vias, gridBagConstraints);
+
+        Tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Tipo.removeAllItems();
+        Tipo.addItem("Tipo");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        jPanel12.add(Tipo, gridBagConstraints);
+
+        jPanel8.add(jPanel12);
 
         jPanel2.add(jPanel8);
 
         jPanel9.setOpaque(false);
+        jPanel9.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 443, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 93, Short.MAX_VALUE)
-        );
+        jPanel10.setOpaque(false);
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Descripcion:");
+        jPanel10.add(jLabel8);
+
+        jPanel9.add(jPanel10, java.awt.BorderLayout.PAGE_START);
+
+        jPanel11.setOpaque(false);
+        jPanel11.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane1.putClientProperty("JComponent.sizeVariant", "mini");
+
+        Descripcion.setColumns(20);
+        Descripcion.setRows(10);
+        jScrollPane1.setViewportView(Descripcion);
+
+        jPanel11.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel9.add(jPanel11, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(jPanel9);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
-        jPanel3.setOpaque(false);
-        jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_START);
-
         jPanel4.setOpaque(false);
+
+        Insertar.setText("Insertar");
+        Insertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InsertarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(Insertar);
+
+        Clean.setText("Limpiar");
+        Clean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CleanActionPerformed(evt);
+            }
+        });
+        jPanel4.add(Clean);
+
         jPanel1.add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
         jPanel5.setOpaque(false);
@@ -150,9 +313,174 @@ public class Insert extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(479, 339));
+        jToolBar1.setFloatable(false);
+        jToolBar1.setRollover(true);
+        jToolBar1.setOpaque(false);
+
+        jButton1.setText("Atras");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton1);
+        jToolBar1.add(jSeparator1);
+
+        jButton2.setText("Deshacer");
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton2);
+
+        getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
+
+        setSize(new java.awt.Dimension(463, 346));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void CantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CantidadKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if((car<'0' || car>'9')) 
+            evt.consume();
+    }//GEN-LAST:event_CantidadKeyTyped
+
+    private void CantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CantidadFocusLost
+        // TODO add your handling code here:
+        try{
+            if(!(Cantidad.getText().equals(""))){
+                int x = parseInt(Cantidad.getText());
+            }
+        }catch(NumberFormatException e){
+            this.getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Solo se pueden insertar numeros","Solo Numeros",JOptionPane.ERROR_MESSAGE, null);                        
+            Cantidad.requestFocus();
+            Cantidad.selectAll();
+        }
+    }//GEN-LAST:event_CantidadFocusLost
+    int cont;
+    private void PrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PrecioKeyTyped
+        // TODO add your handling code here:
+        char caracter = evt.getKeyChar();
+        if(cont == 0){
+            if(((caracter < '0') || (caracter > '9')) && (caracter != KeyEvent.VK_BACK_SPACE) && (caracter !='.')){
+                evt.consume();
+            }else if(caracter == '.'){
+                String s = Precio.getText();
+                if(s.length() == 0){
+                    Precio.setText(0+s);
+                }
+                cont++;
+            }
+        }else{
+            if((caracter<'0' || caracter>'9')) 
+                evt.consume();
+        }
+        if((int)caracter == 8){
+            if(Precio.getText().equals("")){
+                cont = 0;
+            }
+        }
+    }//GEN-LAST:event_PrecioKeyTyped
+    Producto deshacer;
+    private void CleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CleanActionPerformed
+        // TODO add your handling code here:
+        deshacer = new Producto();
+        deshacer.setName(Producto.getText());
+        deshacer.setId(parseInt(Codigo.getText()));
+        deshacer.setCantidad(parseInt(Cantidad.getText()));
+        deshacer.setPrecio(parseDouble(Precio.getText()));
+        deshacer.setDescripcion(Descripcion.getText());
+        deshacer.setMarca(Marca.getText());
+        Cantidad.setText("");
+        Producto.setText("");
+        Precio.setText("");
+        Descripcion.setText("");
+        Marca.setText("");
+        Codigo.setText("");
+        jButton2.setEnabled(true);
+    }//GEN-LAST:event_CleanActionPerformed
+
+    private void InsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarActionPerformed
+        // TODO add your handling code here:
+        if(!(Producto.getText().equals("")&& Cantidad.getText().equals("") && Precio.getText().equals("")
+                && Marca.getText().equals("") && Descripcion.getText().equals(""))){
+                Producto p = new Producto();
+                p.setName(Producto.getText());
+                p.setId(parseInt(Codigo.getText()));
+                p.setCantidad(parseInt(Cantidad.getText()));
+                p.setPrecio(parseDouble(Precio.getText()));
+                p.setDescripcion(Descripcion.getText());
+                p.setMarca(Marca.getText());
+                JOptionPane.showMessageDialog(null,"Su producto fue agregado exitosamente");
+        }else{
+            JOptionPane.showMessageDialog(null,"Debe de llenar todos los campos","Informacion Incompleta",JOptionPane.INFORMATION_MESSAGE,null);            
+        }
+    }//GEN-LAST:event_InsertarActionPerformed
+
+    private void PrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PrecioFocusLost
+        // TODO add your handling code here:
+        try{
+            if(!(Precio.getText().equals(""))){
+                double x = parseDouble(Precio.getText());
+            }
+        }catch(NumberFormatException e){
+            this.getToolkit().beep();       
+            JOptionPane.showMessageDialog(null, "Solo se pueden insertar numeros decimales","Solo Numeros Decimales",JOptionPane.ERROR_MESSAGE, null);             
+            Precio.requestFocus();
+            Precio.selectAll();
+        }
+    }//GEN-LAST:event_PrecioFocusLost
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Codigo.setText(""+deshacer.getId());
+        Producto.setText(deshacer.getName());
+        Cantidad.setText(""+deshacer.getCantidad());
+        Precio.setText(""+deshacer.getPrecio());
+        Descripcion.setText(""+deshacer.getDescripcion());
+        Marca.setText(deshacer.getMarca());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void ViasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViasActionPerformed
+        // TODO add your handling code here:
+        Forma.removeAllItems();
+        Forma.addItem("Forma");
+        if(Vias.getSelectedItem().equals("Oral")){
+            String [] v = {"Cápsulas","Comprimidos","Grageas","Preparados líquidos","Jarabes","Elixires","Suspensiones"};
+            for(String s: v){
+                Forma.addItem(s);
+            }
+        }
+    }//GEN-LAST:event_ViasActionPerformed
+
+    private void FormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormaActionPerformed
+        // TODO add your handling code here:
+        Tipo.removeAllItems();
+        Tipo.addItem("Tipo");
+        if(Forma.getSelectedItem().equals("Cápsulas")){
+            String [] v = {"Analgésicos","Antibiótico","Vacuna","Antisépticos",
+                "Antiinflamatorios","Antiinflamatorio No Esteroideo","Antiinflamatorio Esteroideo",
+                "Antihistamínicos","Anestésico","Antidepresivo","Diuréticos","Laxantes","Broncodilatador",
+                "Antipirético","Antifúngico"};
+            for(String s: v){
+                Tipo.addItem(s);
+            }
+        }
+    }//GEN-LAST:event_FormaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,11 +518,29 @@ public class Insert extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Cantidad;
+    private javax.swing.JButton Clean;
+    private javax.swing.JLabel Codigo;
+    private javax.swing.JTextArea Descripcion;
+    private javax.swing.JComboBox Forma;
+    private javax.swing.JButton Insertar;
+    private javax.swing.JTextField Marca;
+    private javax.swing.JTextField Precio;
+    private javax.swing.JTextField Producto;
+    private javax.swing.JComboBox Tipo;
+    private javax.swing.JComboBox Vias;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -203,7 +549,8 @@ public class Insert extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }
