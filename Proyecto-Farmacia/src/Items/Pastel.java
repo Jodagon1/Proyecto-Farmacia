@@ -30,7 +30,7 @@ public class Pastel {
         data.setValue("Ricardo",25);
         //Creamos un Chart
         JFreeChart chart = ChartFactory.createPieChart(
-                           "Ejemplo de JFreeChart", //Títrulo del gráfico
+                           "Familia Gonzalez", //Títrulo del gráfico
                            data,
                            true,//Leyenda
                            true,//ToolTips

@@ -6,13 +6,9 @@
 
 package Interfaces;
 
+import Items.Comparar;
 import Items.Conectar;
 import Pojo.Producto;
-import java.awt.Cursor;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import static java.lang.Integer.parseInt;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -59,7 +55,8 @@ public class Search extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Area = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Buscar");
         setResizable(false);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
@@ -72,7 +69,7 @@ public class Search extends javax.swing.JFrame {
         Seleccion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         Seleccion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Seleccion.removeAllItems();
-        String [] busqueda = {"Id","Nombre","Marca"};
+        String [] busqueda = {"Todos","Id","Nombre","Marca"};
         for(String s: busqueda){
             Seleccion.addItem(s);
         }
@@ -219,7 +216,32 @@ public class Search extends javax.swing.JFrame {
         }else{ 
             int cont = 0;
             prod = new Conectar().ConexionProd();
-            if(Seleccion.getSelectedItem().equals("Id")){
+            if(Seleccion.getSelectedItem().equals("Todos")){
+                String t = Campo1.getText();
+                int x,y;
+                x = t.length();                
+                for(Producto p: prod){
+                    Producto pd = new Producto();
+                    pd = new Comparar().CompararAll(p, t);
+                    if(pd == null){
+                        cont ++;
+                    }else{
+                        String s;                        
+                        Object [] newRow = {(s=SetLength(""+p.getId())),p.getName(),p.getMarca(),p.getCantidad(),p.getPrecio()};
+                        dtm.addRow(newRow);
+                        jTable1.setModel(dtm);
+                        String s1 = Area.getText();
+                        if(s.length() != 0){
+                            Area.setText(s1+""+(s=SetLength(""+p.getId()))+": "+p.getDescripcion()+"\n");
+                        }else{
+                            Area.setText(p.getId()+": "+p.getDescripcion()+"\n");
+                        }
+                    }
+                }
+                if(cont == prod.size()){
+                    JOptionPane.showMessageDialog(null,"No se encontro");
+                }
+            }else if(Seleccion.getSelectedItem().equals("Id")){
                 String x = Campo1.getText();
                 String y = SetLength(x); 
                 for(Producto p: prod){
@@ -294,6 +316,7 @@ public class Search extends javax.swing.JFrame {
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         // TODO add your handling code here:
         dispose();
+        new Interfaces.Producto().Call();
     }//GEN-LAST:event_ExitActionPerformed
 
     private void CleanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CleanMouseEntered
@@ -357,12 +380,7 @@ public class Search extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Search().setVisible(true);
-                ImageIcon im = new ImageIcon(this.getClass().getResource("/Imagen/search.png"));
-                ImageIcon im1 = new ImageIcon(this.getClass().getResource("/Imagen/Clean.png"));
-                ImageIcon im2 = new ImageIcon(this.getClass().getResource("/Imagen/exit.png"));
-                Search.setIcon(im);
-                Clean.setIcon(im1);
-                Exit.setIcon(im2);
+                
             }
         });
     }
@@ -400,5 +418,15 @@ public class Search extends javax.swing.JFrame {
             y = ""+x;
         }          
         return y;
+    }
+
+    void Call() {
+        ImageIcon im = new ImageIcon(this.getClass().getResource("/Imagen/search.png"));
+        ImageIcon im1 = new ImageIcon(this.getClass().getResource("/Imagen/Clean.png"));
+        ImageIcon im2 = new ImageIcon(this.getClass().getResource("/Imagen/exit.png"));
+        Search.setIcon(im);
+        Clean.setIcon(im1);
+        Exit.setIcon(im2);
+        this.setVisible(true);
     }
 }

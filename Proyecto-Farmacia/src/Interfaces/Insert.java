@@ -6,11 +6,13 @@
 
 package Interfaces;
 
+import Items.Conectar;
 import Items.JPanelColor;
 import Pojo.Producto;
 import java.awt.event.KeyEvent;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -28,7 +30,10 @@ public class Insert extends javax.swing.JFrame {
         ImageIcon im = new ImageIcon(this.getClass().getResource("/Imagen/Farmacia.jpg"));
         setIconImage(im.getImage());        
     }
-
+    String [] v = {"Analgésicos","Antibiótico","Vacuna","Antisépticos",
+                "Antiinflamatorios","Antiinflamatorio No Esteroideo","Antiinflamatorio Esteroideo",
+                "Antihistamínicos","Anestésico","Antidepresivo","Diuréticos","Laxantes","Broncodilatador",
+                "Antipirético","Antifúngico"};
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,6 +80,7 @@ public class Insert extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1 = new JPanelColor("/Imagen/Fondo.jpg");
         jPanel1.setLayout(new java.awt.BorderLayout());
@@ -127,7 +133,7 @@ public class Insert extends javax.swing.JFrame {
         jPanel7.add(jLabel4, gridBagConstraints);
 
         Cantidad.setText("jTextField2");
-        Cantidad.setText("");
+        Cantidad.setText("0");
         Cantidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 CantidadFocusLost(evt);
@@ -154,7 +160,7 @@ public class Insert extends javax.swing.JFrame {
         jLabel5.setText("Precio:");
 
         Precio.setText("jTextField3");
-        Precio.setText("");
+        Precio.setText("0");
         Precio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 PrecioFocusLost(evt);
@@ -176,10 +182,10 @@ public class Insert extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 427, Short.MAX_VALUE)
+            .addGap(0, 541, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(0, 87, Short.MAX_VALUE)
+                    .addGap(0, 144, Short.MAX_VALUE)
                     .addComponent(jLabel5)
                     .addGap(23, 23, 23)
                     .addComponent(Precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,14 +193,14 @@ public class Insert extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addGap(23, 23, 23)
                     .addComponent(Marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 88, Short.MAX_VALUE)))
+                    .addGap(0, 145, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 36, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 8, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(Precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(Marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,7 +209,7 @@ public class Insert extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel5)
                                 .addComponent(jLabel6))))
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 8, Short.MAX_VALUE)))
         );
 
         jPanel8.add(jPanel3);
@@ -217,6 +223,11 @@ public class Insert extends javax.swing.JFrame {
         Forma.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         Forma.removeAllItems();
         Forma.addItem("Forma");
+        Forma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FormaMouseClicked(evt);
+            }
+        });
         Forma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FormaActionPerformed(evt);
@@ -342,7 +353,7 @@ public class Insert extends javax.swing.JFrame {
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
-        setSize(new java.awt.Dimension(463, 346));
+        setSize(new java.awt.Dimension(577, 315));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -392,27 +403,15 @@ public class Insert extends javax.swing.JFrame {
     }//GEN-LAST:event_PrecioKeyTyped
     Producto deshacer;
     private void CleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CleanActionPerformed
-        // TODO add your handling code here:
-        deshacer = new Producto();
-        deshacer.setName(Producto.getText());
-        deshacer.setId(parseInt(Codigo.getText()));
-        deshacer.setCantidad(parseInt(Cantidad.getText()));
-        deshacer.setPrecio(parseDouble(Precio.getText()));
-        deshacer.setDescripcion(Descripcion.getText());
-        deshacer.setMarca(Marca.getText());
-        Cantidad.setText("");
-        Producto.setText("");
-        Precio.setText("");
-        Descripcion.setText("");
-        Marca.setText("");
-        Codigo.setText("");
-        jButton2.setEnabled(true);
+        // TODO add your handling code here:        
+        Clear();
     }//GEN-LAST:event_CleanActionPerformed
 
     private void InsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarActionPerformed
         // TODO add your handling code here:
         if(!(Producto.getText().equals("")&& Cantidad.getText().equals("") && Precio.getText().equals("")
-                && Marca.getText().equals("") && Descripcion.getText().equals(""))){
+                && Marca.getText().equals("") && Descripcion.getText().equals("") && Vias.getSelectedItem().equals("Vias de administracion")
+                && Forma.getSelectedItem().equals("Forma") && Tipo.getSelectedItem().equals("Tipo"))){
                 Producto p = new Producto();
                 p.setName(Producto.getText());
                 p.setId(parseInt(Codigo.getText()));
@@ -420,7 +419,13 @@ public class Insert extends javax.swing.JFrame {
                 p.setPrecio(parseDouble(Precio.getText()));
                 p.setDescripcion(Descripcion.getText());
                 p.setMarca(Marca.getText());
+                p.setVia((String)Vias.getSelectedItem());
+                p.setForma((String)Forma.getSelectedItem());
+                p.setTipo((String)Tipo.getSelectedItem());
+                Clear();
+                new Conectar().InsertarProd(p);
                 JOptionPane.showMessageDialog(null,"Su producto fue agregado exitosamente");
+                
         }else{
             JOptionPane.showMessageDialog(null,"Debe de llenar todos los campos","Informacion Incompleta",JOptionPane.INFORMATION_MESSAGE,null);            
         }
@@ -443,6 +448,7 @@ public class Insert extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         dispose();
+        new Interfaces.Producto().Call();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -453,34 +459,119 @@ public class Insert extends javax.swing.JFrame {
         Precio.setText(""+deshacer.getPrecio());
         Descripcion.setText(""+deshacer.getDescripcion());
         Marca.setText(deshacer.getMarca());
+        Vias.setSelectedItem(deshacer.getVia());
+        Forma.setSelectedItem(deshacer.getForma());
+        Tipo.setSelectedItem(deshacer.getTipo());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void ViasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViasActionPerformed
-        // TODO add your handling code here:
-        Forma.removeAllItems();
-        Forma.addItem("Forma");
+        // TODO add your handling code here:        
         if(Vias.getSelectedItem().equals("Oral")){
+            f = false;
             String [] v = {"Cápsulas","Comprimidos","Grageas","Preparados líquidos","Jarabes","Elixires","Suspensiones"};
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
             for(String s: v){
                 Forma.addItem(s);
             }
+        }else if(Vias.getSelectedItem().equals("Intramuscular")){
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
+            Forma.addItem("Inyección");
+        }else if(Vias.getSelectedItem().equals("Intravenosa")){
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
+            Forma.addItem("Inyección");
+        }else if(Vias.getSelectedItem().equals("Vias de administracion")){
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
+            Tipo.removeAllItems();
+            Tipo.addItem("Tipo");
+        }else if(Vias.getSelectedItem().equals("Tópica")){
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
+            Forma.addItem("Cremas");
+            Forma.addItem("Spray");
+            Forma.addItem("Unguento");
+            Forma.addItem("Jabón");
+            Forma.addItem("Shampoo");
+            Tipo.removeAllItems();
+            Tipo.addItem("Tipo");
+        }else if(Vias.getSelectedItem().equals("Ótica")){
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
+            Forma.addItem("Gotas");
+            Tipo.removeAllItems();
+            Tipo.addItem("Tipo");
+        }else if(Vias.getSelectedItem().equals("Subcutánea")){
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
+            Forma.addItem("Inyección");
+            Tipo.removeAllItems();
+            Tipo.addItem("Tipo");
+        }else if(Vias.getSelectedItem().equals("Inhalatoria")){
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
+            Forma.addItem("Spray");
+            Tipo.removeAllItems();
+            Tipo.addItem("Tipo");
+        }else if(Vias.getSelectedItem().equals("Nasal")){
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
+            Forma.addItem("Crema");
+            Forma.addItem("Unguento");
+            Forma.addItem("Spray");
+            Tipo.removeAllItems();
+            Tipo.addItem("Tipo");
+        }else if(Vias.getSelectedItem().equals("Oftalmica")){
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
+            Forma.addItem("Crema");
+            Forma.addItem("Gotas");
+            Tipo.removeAllItems();
+            Tipo.addItem("Tipo");            
+        }else if(Vias.getSelectedItem().equals("Transdermica")){
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
+            Forma.addItem("Inyección");
+            Tipo.removeAllItems();
+            Tipo.addItem("Tipo");         
+        }else if(Vias.getSelectedItem().equals("Rectal")){
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
+            Forma.addItem("Supositorio");
+            Tipo.removeAllItems();
+            Tipo.addItem("Tipo");         
+        }else if(Vias.getSelectedItem().equals("Vaginal")){
+            Forma.removeAllItems();
+            Forma.addItem("Forma");
+            Forma.addItem("Crema");
+            Forma.addItem("Ovulos");
+            Tipo.removeAllItems();
+            Tipo.addItem("Tipo");         
         }
     }//GEN-LAST:event_ViasActionPerformed
-
+    boolean f = false;
     private void FormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormaActionPerformed
-        // TODO add your handling code here:
-        Tipo.removeAllItems();
-        Tipo.addItem("Tipo");
-        if(Forma.getSelectedItem().equals("Cápsulas")){
-            String [] v = {"Analgésicos","Antibiótico","Vacuna","Antisépticos",
-                "Antiinflamatorios","Antiinflamatorio No Esteroideo","Antiinflamatorio Esteroideo",
-                "Antihistamínicos","Anestésico","Antidepresivo","Diuréticos","Laxantes","Broncodilatador",
-                "Antipirético","Antifúngico"};
-            for(String s: v){
-                Tipo.addItem(s);
+        // TODO add your handling code here:        
+        if(f && (Vias.getSelectedItem()!="Vias de administracion") && (Forma.getItemCount())!=0){
+            if(Forma.getSelectedItem().equals("Forma")){
+                Tipo.removeAllItems();
+                Tipo.addItem("Tipo");
+            }else{   
+                Tipo.removeAllItems();
+                Tipo.addItem("Tipo"); 
+                for(String s: v){     
+                    Tipo.addItem(s);
+                } 
             }
-        }
+        }        
     }//GEN-LAST:event_FormaActionPerformed
+
+    private void FormaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FormaMouseClicked
+        // TODO add your handling code here:
+        f = true;
+    }//GEN-LAST:event_FormaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -513,14 +604,14 @@ public class Insert extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Insert().setVisible(true);
+                
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Cantidad;
     private javax.swing.JButton Clean;
-    private javax.swing.JLabel Codigo;
+    private static javax.swing.JLabel Codigo;
     private javax.swing.JTextArea Descripcion;
     private javax.swing.JComboBox Forma;
     private javax.swing.JButton Insertar;
@@ -553,4 +644,46 @@ public class Insert extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
+
+    private void Clear() {
+        deshacer = new Producto();
+        deshacer.setName(Producto.getText());
+        deshacer.setId(parseInt(Codigo.getText()));
+        deshacer.setCantidad(parseInt(Cantidad.getText()));
+        deshacer.setPrecio(parseDouble(Precio.getText()));
+        deshacer.setDescripcion(Descripcion.getText());
+        deshacer.setMarca(Marca.getText());
+        deshacer.setVia((String)Vias.getSelectedItem());
+        deshacer.setForma((String)Forma.getSelectedItem());
+        deshacer.setTipo((String)Tipo.getSelectedItem());        
+        jButton2.setEnabled(true);
+        Cantidad.setText("");
+        Producto.setText("");
+        Precio.setText("");
+        Descripcion.setText("");
+        Marca.setText("");
+        Codigo.setText("");
+        Vias.addItem("Vias de administracion");
+        Forma.removeAllItems();
+        Forma.addItem("Forma");
+        Tipo.removeAllItems();
+        Tipo.addItem("Tipo");
+    }
+    static List<Producto> prod;
+
+    void Call() {
+        int cont = 0;
+        prod = new Conectar().ConexionProd();
+        for(Producto p: prod){
+            if(p == null){
+                Codigo.setText("000000");
+            }else if(prod.size()-1 == cont){
+                String s;
+                s = new Search().SetLength(""+(p.getId()+1));
+                Codigo.setText(s);
+            }
+            cont ++;        
+        }
+        this.setVisible(true);
+    }
 }

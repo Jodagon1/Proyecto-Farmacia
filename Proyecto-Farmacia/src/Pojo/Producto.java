@@ -17,15 +17,45 @@ public class Producto {
     private double Precio;
     private String Marca;
     private String Descripcion;
+    private String Via;
+    private String Forma;
+    private String Tipo;
     public Producto() {}
     
-    public Producto(int Id, String Name, int Cantidad, double Precio, String Marca, String Descripcion) {
+    public Producto(int Id, String Name, int Cantidad, double Precio, String Marca, String Descripcion,String Via,String Forma, String Tipo) {
         this.Id = Id;
         this.Name = Name;
         this.Cantidad = Cantidad;
         this.Precio = Precio;
         this.Marca = Marca;
         this.Descripcion = Descripcion;
+        this.Via = Via;
+        this.Forma = Forma;
+        this.Tipo = Tipo;
+    }
+    
+    public String getVia(){
+        return Via;
+    }
+    
+    public void setVia(String Via){
+        this.Via = Via;
+    }
+    
+    public String getForma(){
+        return Forma;
+    }
+    
+    public void setForma(String Forma){
+        this.Forma = Forma;
+    }
+    
+    public String getTipo(){
+        return Tipo;
+    }
+    
+    public void setTipo(String Tipo){
+        this.Tipo = Tipo;
     }
     
     public int getId() {
