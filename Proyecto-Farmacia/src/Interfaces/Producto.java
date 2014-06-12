@@ -20,6 +20,7 @@ public class Producto extends javax.swing.JFrame {
      */
     public Producto() {
         initComponents();
+        setIconImage(new ImageIcon(this.getClass().getResource("/Imagen/capsule.png")).getImage());
     }
 
     /**
@@ -200,13 +201,13 @@ public class Producto extends javax.swing.JFrame {
     private void ModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ModMouseClicked
         // TODO add your handling code here:
         dispose();
-        new Modificar().Call("Modificar");
+        new Modificar().Call("Modificar","Producto");
     }//GEN-LAST:event_ModMouseClicked
 
     private void DeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteMouseClicked
         // TODO add your handling code here:
         dispose();
-        new Modificar().Call("Borrar");
+        new Modificar().Call("Borrar","Producto");
     }//GEN-LAST:event_DeleteMouseClicked
 
     private void SearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchMouseClicked

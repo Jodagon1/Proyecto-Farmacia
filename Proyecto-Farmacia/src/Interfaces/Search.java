@@ -26,6 +26,7 @@ public class Search extends javax.swing.JFrame {
      */
     public Search() {
         initComponents();
+        setIconImage(new ImageIcon(this.getClass().getResource("/Imagen/capsule.png")).getImage());
     }
     private List<Producto> prod;
     private DefaultTableModel dtm = null;

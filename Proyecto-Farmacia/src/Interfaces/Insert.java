@@ -27,8 +27,7 @@ public class Insert extends javax.swing.JFrame {
      */
     public Insert() {
         initComponents();
-        ImageIcon im = new ImageIcon(this.getClass().getResource("/Imagen/Farmacia.jpg"));
-        setIconImage(im.getImage());        
+        setIconImage(new ImageIcon(this.getClass().getResource("/Imagen/capsule.png")).getImage());      
     }
     String [] v = {"Analgésicos","Antibiótico","Vacuna","Antisépticos",
                 "Antiinflamatorios","Antiinflamatorio No Esteroideo","Antiinflamatorio Esteroideo",

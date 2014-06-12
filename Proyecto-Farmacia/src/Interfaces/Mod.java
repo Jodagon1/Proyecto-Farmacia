@@ -25,6 +25,7 @@ public class Mod extends javax.swing.JFrame {
      */
     public Mod() {
         initComponents();
+        setIconImage(new ImageIcon(this.getClass().getResource("/Imagen/capsule.png")).getImage());
     }
     String [] v = {"Analgésicos","Antibiótico","Vacuna","Antisépticos",
                 "Antiinflamatorios","Antiinflamatorio No Esteroideo","Antiinflamatorio Esteroideo",

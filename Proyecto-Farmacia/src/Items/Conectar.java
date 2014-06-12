@@ -26,17 +26,19 @@ public class Conectar {
     private List<Usuario> users;
     private List<Producto> prod;
     public List<Usuario> ConexionUs(){
-        try{
-            Usuario u = new Usuario();
+        try{            
             users = new ArrayList<>();
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost/User","root","Joda");
             Statement s = con.createStatement();
             ResultSet rs = s.executeQuery("select * from Usuario");
             while(rs.next()){
+                Usuario u = new Usuario();
                 u.setId(rs.getInt(1));
                 u.setName(rs.getString(2));
                 u.setPassword(rs.getString(3));
+                u.setAdministrador((rs.getBoolean(4)));
+                u.setEmpleado(rs.getBoolean(5));
                 users.add(u);
             }
             con.close();
@@ -72,8 +74,9 @@ public class Conectar {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost/User","root","Joda");
             Statement s = con.createStatement();
-            s.executeUpdate("Insert into Usuario(Id,Name,Pass) "
-                    + "Values (null,"+"'"+us.getName()+"','"+us.getPassword()+"');");
+            s.executeUpdate("Insert into Usuario(Id,Name,Pass,Administrador,Empleado) "
+                    + "Values (null,"+"'"+us.getName()+"','"+us.getPassword()+"',"+us.isAdministrador()+","+us.isEmpleado()+");");
+            JOptionPane.showMessageDialog(null,"Usuario Registrado");
         }catch(SQLException | ClassNotFoundException e){}
     }
     public void InsertarProd(Producto p){
@@ -107,5 +110,24 @@ public class Conectar {
                     + ""+p.getTipo()+"','"+p.getCantidad()+"','"+p.getPrecio()+"','"+p.getDescripcion()+"');");
         }catch(SQLException | ClassNotFoundException e){}
         JOptionPane.showMessageDialog(null,"Producto Eliminado Satisfactoriamente");
+    }
+    public void ModificarUs(Usuario us){
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/User","root","Joda");
+            Statement s = con.createStatement();            
+            s.executeUpdate("update Usuario set Name = '"+us.getName()+"',Pass = '"+us.getPassword()+"',Administrador = "+us.isAdministrador()+","
+                + "Empleado = "+us.isEmpleado()+" where Id = "+us.getId()+" ;");
+        }catch(SQLException | ClassNotFoundException e){}
+        JOptionPane.showMessageDialog(null,"Usuario Modificado Satisfactioriamente");
+    }
+    public void EliminarUs(Usuario u){
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/User","root","Joda");
+            Statement s = con.createStatement();
+            s.executeUpdate("Delete from Usuario where Id = "+u.getId()+";");
+            JOptionPane.showMessageDialog(null,"Usuario eliminado satisfactoriamente");
+        }catch(SQLException | ClassNotFoundException e){}
     }
 }

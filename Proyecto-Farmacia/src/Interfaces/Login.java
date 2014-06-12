@@ -25,6 +25,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setIconImage(new ImageIcon(this.getClass().getResource("/Imagen/capsule.png")).getImage());
     }
 
     /**
@@ -51,7 +52,7 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2 = new JPanelColor("/Imagen/ColorBlue.jpg");
+        jPanel2 = new JPanelColor("/Imagen/Fondo.jpg");
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jPanel1.setOpaque(false);
@@ -60,12 +61,14 @@ public class Login extends javax.swing.JFrame {
         jPanel1Layout.rowHeights = new int[] {0, 12, 0, 12, 0, 12, 0, 12, 0, 12, 0};
         jPanel1.setLayout(jPanel1Layout);
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Usuario:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 2;
         jPanel1.add(jLabel1, gridBagConstraints);
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Contraseña:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
@@ -76,6 +79,7 @@ public class Login extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         jPanel1.add(Name, gridBagConstraints);
 
+        Chang1.setForeground(new java.awt.Color(255, 255, 255));
         Chang1.setText("Ha olvidado la contraseña?");
         Chang1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         Chang1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -90,7 +94,7 @@ public class Login extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         jPanel1.add(Chang1, gridBagConstraints);
 
-        ImageIcon im = new ImageIcon(this.getClass().getResource("/Imagen/Log.png"));
+        ImageIcon im = new ImageIcon(this.getClass().getResource("/Imagen/Users.png"));
         jLabel4.setText("");
         jLabel4.setIcon(im);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -115,6 +119,7 @@ public class Login extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         jPanel1.add(Aceptar, gridBagConstraints);
 
+        Change1.setForeground(new java.awt.Color(255, 255, 255));
         Change1.setText("Ha olvidado la contraseña?");
         Change1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         Change1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -155,15 +160,24 @@ public class Login extends javax.swing.JFrame {
         boolean band = false;
         if(flag){
             if(!(Name.getText().equals("") && Pass.getText().equals(""))){
+                s.setAdministrador(true);
+                s.setEmpleado(false);
                 s.setName(Name.getText());
                 s.setPassword(Pass.getText());
                 for(Usuario us : users){
                     if(s.getName().equalsIgnoreCase(us.getName())){
                         if(s.getPassword().equals(us.getPassword())){
-                            ImageIcon i = new ImageIcon(this.getClass().getResource("/Imagen/Back.jpg"));
-                            JOptionPane.showMessageDialog(null,"Bienvenido","Welcome",JOptionPane.INFORMATION_MESSAGE,i);
-                            dispose();
-                            new MenuMain().Call();
+                            if(us.isAdministrador()){
+                                ImageIcon i = new ImageIcon(this.getClass().getResource("/Imagen/Back.jpg"));
+                                JOptionPane.showMessageDialog(null,"Bienvenido","Welcome",JOptionPane.INFORMATION_MESSAGE,i);
+                                dispose();
+                                new MenuMain().Call();
+                            }else{
+                                ImageIcon i = new ImageIcon(this.getClass().getResource("/Imagen/Back.jpg"));
+                                JOptionPane.showMessageDialog(null,"Bienvenido","Welcome",JOptionPane.INFORMATION_MESSAGE,i);
+                                dispose();
+                                new MenuEmpleado().Call();
+                            }
                         }else{
                             JOptionPane.showMessageDialog(null,"Password Incorrecto");
                             Pass.requestFocus();
@@ -175,10 +189,11 @@ public class Login extends javax.swing.JFrame {
         }else{
             if(!(Name.getText().equals("") && Pass.getText().equals(""))){
                 s.setName(Name.getText());
-                s.setPassword(Pass.getText());
-                JOptionPane.showMessageDialog(null,"Usuario Agregado");
+                s.setPassword(Pass.getText());                
                 Conectar c = new Conectar();
                 c.InsertarUs(s);
+                dispose();
+                new MenuMain().Call();
             }else{
                 JOptionPane.showMessageDialog(null,"Debe de llenar todos los campos");
             }
@@ -187,6 +202,10 @@ public class Login extends javax.swing.JFrame {
 
     private void Change1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Change1MouseClicked
         // TODO add your handling code here:
+        final ImageIcon im = new ImageIcon(this.getClass().getResource("/Imagen/Usuario.png"));
+        JOptionPane.showMessageDialog(null,"Pongase en contacto con Jonathan Gonzalez\n"
+            + "jonagonzalez12797@yahoo.es","Forget the Password",JOptionPane.INFORMATION_MESSAGE,im);
+        
     }//GEN-LAST:event_Change1MouseClicked
 
     /**
@@ -222,7 +241,7 @@ public class Login extends javax.swing.JFrame {
                 new Login().setVisible(true);
                 users = new Conectar().ConexionUs();
                 if(users.isEmpty()){
-                    Chang1.setText("Nuevo Usuario");
+                    Chang1.setText("Nuevo Usuario Administrador");
                     Cursor c = new Cursor(Cursor.DEFAULT_CURSOR);
                     Chang1.setCursor(c);
                     flag = false;

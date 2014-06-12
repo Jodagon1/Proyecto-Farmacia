@@ -12,12 +12,32 @@ package Pojo;
  */
 public class Usuario {
     private int Id;
+    private boolean Administrador;
 
-    public Usuario(int Id, String Name, String Password) {
+    public Usuario(int Id, boolean Administrador, boolean Empleado, String Name, String Password) {
         this.Id = Id;
+        this.Administrador = Administrador;
+        this.Empleado = Empleado;
         this.Name = Name;
         this.Password = Password;
     }
+
+    public boolean isAdministrador() {
+        return Administrador;
+    }
+
+    public void setAdministrador(boolean Administrador) {
+        this.Administrador = Administrador;
+    }
+
+    public boolean isEmpleado() {
+        return Empleado;
+    }
+
+    public void setEmpleado(boolean Empleado) {
+        this.Empleado = Empleado;
+    }
+    private boolean Empleado;
 
     public int getId() {
         return Id;

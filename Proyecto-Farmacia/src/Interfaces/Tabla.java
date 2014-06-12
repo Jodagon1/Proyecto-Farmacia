@@ -9,6 +9,7 @@ package Interfaces;
 import Items.Conectar;
 import Items.JPanelColor;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +23,7 @@ public class Tabla extends javax.swing.JFrame {
      */
     public Tabla() {
         initComponents();
+        setIconImage(new ImageIcon(this.getClass().getResource("/Imagen/capsule.png")).getImage());
     }
     private List<Pojo.Producto> prod;
     private DefaultTableModel dtm = null;

@@ -9,10 +9,12 @@ package Interfaces;
 import Items.Comparar;
 import Items.Conectar;
 import Pojo.Producto;
+import Pojo.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +27,7 @@ public class Modificar extends javax.swing.JFrame {
      */
     public Modificar() {
         initComponents();
+        setIconImage(new ImageIcon(this.getClass().getResource("/Imagen/capsule.png")).getImage());
     }
 
     /**
@@ -109,43 +112,86 @@ public class Modificar extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     List<Producto> productos;
+    List<Usuario> usuarios;
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
         // TODO add your handling code here:
-        productos = new ArrayList<>();
-        int cont = 0;
-        List<Producto> prod = new ArrayList<>();
-        prod = new Conectar().ConexionProd();
-        String s = Campo.getText();
-        String id;
-        dlm = new DefaultListModel();
-        boolean b = false;
-        for(Producto p : prod){
-            Producto pd = new Producto();
-            pd = new Comparar().CompararAll(p, s);
-            if(pd == null){
-                cont++;
-            }else{
-                String s1 = "Id: "+(id = new Search().SetLength(""+pd.getId()))+", Nombre: "+pd.getName()+","
-                        + " Marca: "+pd.getMarca();
-                productos.add(pd);                
-                dlm.addElement(s1);
-                Lista.setModel(dlm);
-            }
-            if(cont == prod.size()){
-                b = true;
-            }
-        }
-        if(b){
-            for(Producto p:prod){
-                if(p.getName().equals(Campo.getText())){
-                    productos.add(p);
-                    dlm = new DefaultListModel();
-                    String s1 = "Id: "+(id = new Search().SetLength(""+p.getId()))+", Nombre: "+p.getName()+","
-                        + " Marca: "+p.getMarca();
+        if(s.equalsIgnoreCase("Producto")){
+            productos = new ArrayList<>();
+            int cont = 0;
+            List<Producto> prod = new ArrayList<>();
+            prod = new Conectar().ConexionProd();
+            String s = Campo.getText();
+            String id;
+            dlm = new DefaultListModel();
+            boolean b = false;
+            for(Producto p : prod){
+                Producto pd = new Producto();
+                pd = new Comparar().CompararAll(p, s);
+                if(pd == null){
+                    cont++;
+                }else{
+                    String s1 = "Id: "+(id = new Search().SetLength(""+pd.getId()))+", Nombre: "+pd.getName()+","
+                            + " Marca: "+pd.getMarca();
+                    productos.add(pd);                
                     dlm.addElement(s1);
                     Lista.setModel(dlm);
                 }
+                if(cont == prod.size()){
+                    b = true;
+                }
             }
+            if(b){
+                for(Producto p:prod){
+                    if(p.getName().equals(Campo.getText())){
+                        productos.add(p);
+                        dlm = new DefaultListModel();
+                        String s1 = "Id: "+(id = new Search().SetLength(""+p.getId()))+", Nombre: "+p.getName()+","
+                            + " Marca: "+p.getMarca();
+                        dlm.addElement(s1);
+                        Lista.setModel(dlm);
+                    }
+                }
+            }
+        }else{
+            int con = 0;
+            usuarios = new ArrayList<>();
+            int cont = 0;
+            List<Usuario> us = new ArrayList<>();
+            us = new Conectar().ConexionUs();
+            String s = Campo.getText();
+            dlm = new DefaultListModel();
+            boolean b = false;
+            for(Usuario u:us){
+                Usuario user = new Usuario();
+                user = new Comparar().CompararAll(u, s);
+                if(user == null){
+                    cont++;
+                }else{
+                    String s1 = "Nombre: "+user.getName();
+                    usuarios.add(user);                
+                    dlm.addElement(s1);
+                    Lista.setModel(dlm);
+                }
+                if(cont == us.size()){
+                    b = true;
+                }                
+            }
+            if(b){                
+                for(Usuario u : us){
+                    if(u.getName().equals(Campo.getText())){
+                        usuarios.add(u);
+                        dlm = new DefaultListModel();
+                        String s1 = "Nombre: "+u.getName();
+                        dlm.addElement(s1);
+                        Lista.setModel(dlm);
+                    }else{
+                        con++;
+                    }
+                }
+            }
+            if(con == us.size()){
+                JOptionPane.showMessageDialog(null,"Usuario no encontrado");
+            }                
         }
     }//GEN-LAST:event_SearchActionPerformed
     DefaultListModel dlm;
@@ -158,36 +204,61 @@ public class Modificar extends javax.swing.JFrame {
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         // TODO add your handling code here:
-        dispose();
-        new Interfaces.Producto().Call();
+        if(s.equalsIgnoreCase("Producto")){
+            dispose();
+            new Interfaces.Producto().Call();
+        }else{
+            dispose();
+            new Interfaces.MenuUsuario().Call();
+        }
     }//GEN-LAST:event_ExitActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         // TODO add your handling code here:
-        String id;
-        if(Aceptar.getText().equals("Modificar")){
-            this.setTitle("Modificar Producto");
-            if(productos.size()!= 0){
-                for(Producto p: productos){
-                    String s1 = "Id: "+(id = new Search().SetLength(""+p.getId()))+", Nombre: "+p.getName()+","
-                            + " Marca: "+p.getMarca();
-                    if(Lista.getSelectedValue().equals(s1)){              
-                        new Mod().SetP(p);
+        if(s.equalsIgnoreCase("Producto")){
+            String id;
+            if(Aceptar.getText().equals("Modificar")){            
+                if(productos.size()!= 0){
+                    for(Producto p: productos){
+                        String s1 = "Id: "+(id = new Search().SetLength(""+p.getId()))+", Nombre: "+p.getName()+","
+                                + " Marca: "+p.getMarca();
+                        if(Lista.getSelectedValue().equals(s1)){              
+                            new Mod().SetP(p);
+                        }
+                    }
+                }
+            }else{            
+                if(productos.size()!= 0){
+                    for(Producto p: productos){
+                        String s1 = "Id: "+(id = new Search().SetLength(""+p.getId()))+", Nombre: "+p.getName()+","
+                                + " Marca: "+p.getMarca();
+                        if(Lista.getSelectedValue().equals(s1)){              
+                            new Conectar().EliminarProd(p);
+                        }
                     }
                 }
             }
         }else{
-            this.setTitle("Eliminar Producto");
-            if(productos.size()!= 0){
-                for(Producto p: productos){
-                    String s1 = "Id: "+(id = new Search().SetLength(""+p.getId()))+", Nombre: "+p.getName()+","
-                            + " Marca: "+p.getMarca();
-                    if(Lista.getSelectedValue().equals(s1)){              
-                        new Conectar().EliminarProd(p);
+            if(Aceptar.getText().equals("Modificar")){
+                if(usuarios.size() != 0){
+                    for(Usuario u : usuarios){
+                        String s1 = "Nombre: "+u.getName();
+                        if(Lista.getSelectedValue().equals(s1)){
+                            new NewUser().Call("Modificar Usuario","Modificar",u);
+                        }
+                    }
+                }
+            }else{
+                if(usuarios.size()!=0){
+                    for(Usuario u: usuarios){
+                        String s1 = "Nombre: "+u.getName();
+                        if(Lista.getSelectedValue().equals(s1)){
+                            new Conectar().EliminarUs(u);
+                        }
                     }
                 }
             }
-        }        
+        }
     }//GEN-LAST:event_AceptarActionPerformed
 
     /**
@@ -240,12 +311,15 @@ public class Modificar extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-
-    void Call(String modificar) {
+    String s;
+    void Call(String modificar,String Unkwon) {
+        s = Unkwon;
         Search.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/search.png")));
         Clear.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Clean.png")));
         Exit.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/exit.png")));
         Aceptar.setText(modificar);
         this.setVisible(true);
+        this.setTitle(modificar+" "+Unkwon); 
+        Aceptar.setText(modificar);
     }
 }
