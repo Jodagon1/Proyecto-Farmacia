@@ -49,7 +49,10 @@ public class Producto extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         ViewAll = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jPanel15 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        Shop = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         Exit = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -63,7 +66,7 @@ public class Producto extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jPanel2 = new JPanelColor("/Imagen/Fondo.jpg");
-        jPanel2.setLayout(new java.awt.GridLayout(2, 3));
+        jPanel2.setLayout(new java.awt.GridLayout(3, 3));
 
         jPanel10.setOpaque(false);
         jPanel10.setLayout(new java.awt.BorderLayout());
@@ -160,8 +163,27 @@ public class Producto extends javax.swing.JFrame {
 
         jPanel2.add(jPanel14);
 
-        jPanel15.setOpaque(false);
-        jPanel15.setLayout(new java.awt.BorderLayout());
+        jPanel4.setOpaque(false);
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        Shop.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Shop.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Shop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ShopMouseClicked(evt);
+            }
+        });
+        jPanel4.add(Shop, java.awt.BorderLayout.CENTER);
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Compra");
+        jPanel4.add(jLabel5, java.awt.BorderLayout.PAGE_END);
+
+        jPanel2.add(jPanel4);
+
+        jPanel5.setOpaque(false);
+        jPanel5.setLayout(new java.awt.BorderLayout());
 
         Exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Exit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -170,14 +192,14 @@ public class Producto extends javax.swing.JFrame {
                 ExitMouseClicked(evt);
             }
         });
-        jPanel15.add(Exit, java.awt.BorderLayout.CENTER);
+        jPanel5.add(Exit, java.awt.BorderLayout.CENTER);
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Salir");
-        jPanel15.add(jLabel9, java.awt.BorderLayout.PAGE_END);
+        jPanel5.add(jLabel9, java.awt.BorderLayout.PAGE_END);
 
-        jPanel2.add(jPanel15);
+        jPanel2.add(jPanel5);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -188,7 +210,7 @@ public class Producto extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(451, 339));
+        setSize(new java.awt.Dimension(643, 460));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -216,16 +238,22 @@ public class Producto extends javax.swing.JFrame {
         new Search().Call();
     }//GEN-LAST:event_SearchMouseClicked
 
+    private void ViewAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ViewAllMouseClicked
+        // TODO add your handling code here:
+        new Tabla().Call();
+    }//GEN-LAST:event_ViewAllMouseClicked
+
+    private void ShopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShopMouseClicked
+        // TODO add your handling code here:
+        dispose();
+        new Modificar().Call("Comprar", "Producto");        
+    }//GEN-LAST:event_ShopMouseClicked
+
     private void ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitMouseClicked
         // TODO add your handling code here:
         dispose();
         new MenuMain().Call();
     }//GEN-LAST:event_ExitMouseClicked
-
-    private void ViewAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ViewAllMouseClicked
-        // TODO add your handling code here:
-        new Tabla().Call();
-    }//GEN-LAST:event_ViewAllMouseClicked
 
     /**
      * @param args the command line arguments
@@ -264,14 +292,16 @@ public class Producto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JLabel Delete;
-    private static javax.swing.JLabel Exit;
+    private javax.swing.JLabel Exit;
     private static javax.swing.JLabel Mod;
     private static javax.swing.JLabel New;
     private static javax.swing.JLabel Search;
+    private javax.swing.JLabel Shop;
     private static javax.swing.JLabel ViewAll;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -282,9 +312,10 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 
     void Call() {
@@ -294,6 +325,7 @@ public class Producto extends javax.swing.JFrame {
         ViewAll.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Open.png")));
         Mod.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Edit.png")));
         Exit.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Salir.png")));
+        Shop.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Shoping.png")));
         this.setVisible(true);
     }
 }

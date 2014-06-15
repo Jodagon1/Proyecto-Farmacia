@@ -6,6 +6,7 @@
 
 package Items;
 
+import Pojo.Factura;
 import Pojo.Producto;
 import Pojo.Usuario;
 import java.sql.Connection;
@@ -89,6 +90,16 @@ public class Conectar {
                     + ""+p.getTipo()+"','"+p.getCantidad()+"','"+p.getPrecio()+"','"+p.getDescripcion()+"');");
         }catch(SQLException | ClassNotFoundException e){}
     }
+    public void InsertarVenta(Producto p,String s){
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/User","root","Joda");
+            Statement st = con.createStatement();
+            st.executeUpdate("Insert into Ventas(Name,Marca,Via,Forma,Tipo,Cantidad,Precio,Fecha) "
+                    + "Values ('"+p.getName()+"','"+p.getMarca()+"','"+p.getVia()+"','"+p.getForma()+"','"
+                    + ""+p.getTipo()+"','"+p.getCantidad()+"','"+p.getPrecio()+"','"+s+"');");
+        }catch(SQLException | ClassNotFoundException e){}
+    }
     public void ModificarProd(Producto p){
         try{
             Class.forName("com.mysql.jdbc.Driver");
@@ -129,5 +140,40 @@ public class Conectar {
             s.executeUpdate("Delete from Usuario where Id = "+u.getId()+";");
             JOptionPane.showMessageDialog(null,"Usuario eliminado satisfactoriamente");
         }catch(SQLException | ClassNotFoundException e){}
+    }
+    public Connection Conect(){
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/User","root","Joda");            
+        }catch(ClassNotFoundException | SQLException e){}
+        return con;
+    }
+    public void Conect(List<Factura> f){
+        Statement s = null;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/User","root","Joda");
+            s = con.createStatement();
+            s.executeUpdate("DELETE FROM Factura WHERE Id >= '0';"); 
+            for(Factura t: f){
+                s.executeUpdate("Insert into Factura(Id,Name,Usuario,Fecha,Precio,Cantidad,Total) "
+                    + "Values ('"+t.getId()+"','"+t.getName()+"','"+t.getUsuario()+"','"+t.getFecha()+"','"+t.getPrecio()+"','"
+                    + ""+t.getCantidad()+"','"+t.getTotal()+"');");
+            }
+        }catch(ClassNotFoundException | SQLException e){}
+    }
+    public List<Producto> ConectCompra(){
+        return null;
+    }
+    public void InsertCompra(Producto prd,String Fecha,String Name){        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/User","root","Joda");
+            Statement s = con.createStatement();
+            s.executeUpdate("Insert into Compra(Name,Marca,Via,Forma,Tipo,Cantidad,Precio,Fecha,Comprador) "
+                    + "Values ('"+prd.getName()+"','"+prd.getMarca()+"','"+prd.getVia()+"','"+prd.getForma()+"','"
+                    + ""+prd.getTipo()+"',"+prd.getCantidad()+","+prd.getPrecio()+",'"+Fecha+"','"+Name+"');");
+        
+        }catch(ClassNotFoundException | SQLException e){}
     }
 }

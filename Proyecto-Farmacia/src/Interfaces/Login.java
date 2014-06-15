@@ -8,8 +8,10 @@ package Interfaces;
 
 import Items.Conectar;
 import Items.JPanelColor;
+import Pojo.UseUser;
 import Pojo.Usuario;
 import java.awt.Cursor;
+import java.io.IOException;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -170,13 +172,21 @@ public class Login extends javax.swing.JFrame {
                             if(us.isAdministrador()){
                                 ImageIcon i = new ImageIcon(this.getClass().getResource("/Imagen/Back.jpg"));
                                 JOptionPane.showMessageDialog(null,"Bienvenido","Welcome",JOptionPane.INFORMATION_MESSAGE,i);
+                                try{
+                                    new UseUser().SetUser(us);
+                                }catch(IOException e){
+                                    System.out.println(e.getMessage());}
                                 dispose();
-                                new MenuMain().Call();
+                                new MenuMain().Call(us);
                             }else{
                                 ImageIcon i = new ImageIcon(this.getClass().getResource("/Imagen/Back.jpg"));
                                 JOptionPane.showMessageDialog(null,"Bienvenido","Welcome",JOptionPane.INFORMATION_MESSAGE,i);
-                                dispose();
-                                new MenuEmpleado().Call();
+                                try{
+                                    new UseUser().SetUser(us);
+                                }catch(IOException e){
+                                    System.out.println(e.getMessage());}
+                                dispose();                                
+                                new MenuEmpleado().Call(us);                                
                             }
                         }else{
                             JOptionPane.showMessageDialog(null,"Password Incorrecto");
@@ -268,5 +278,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
     static boolean  flag = true;
-    static List<Usuario> users;
+    static List<Usuario> users;    
 }

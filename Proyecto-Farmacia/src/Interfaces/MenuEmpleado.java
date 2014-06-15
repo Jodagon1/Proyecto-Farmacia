@@ -7,6 +7,7 @@
 package Interfaces;
 
 import Items.JPanelColor;
+import Pojo.Usuario;
 import javax.swing.ImageIcon;
 
 /**
@@ -58,6 +59,11 @@ public class MenuEmpleado extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
         jLabel2.setToolTipText("Ventas");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -100,6 +106,12 @@ public class MenuEmpleado extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        dispose();
+        new Ventas().Call();
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -145,8 +157,9 @@ public class MenuEmpleado extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
-
-    void Call() {
+    Usuario us;
+    void Call(Usuario u) {
+        us = u;
         jLabel2.setText("");
         jLabel2.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Shop.png")));
         jLabel5.setText("");

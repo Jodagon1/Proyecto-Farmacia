@@ -6,8 +6,16 @@
 
 package Interfaces;
 
+import Items.Conectar;
 import Items.JPanelColor;
+import Pojo.Usuario;
+import java.sql.Connection;
 import javax.swing.ImageIcon;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -123,6 +131,11 @@ public class MenuMain extends javax.swing.JFrame {
         Shop.setText("jLabel7");
         Shop.setToolTipText("Ventas");
         Shop.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Shop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ShopMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
@@ -142,6 +155,11 @@ public class MenuMain extends javax.swing.JFrame {
         Graphic.setText("jLabel9");
         Graphic.setToolTipText("Gráficas");
         Graphic.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Graphic.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GraphicMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;
@@ -152,6 +170,11 @@ public class MenuMain extends javax.swing.JFrame {
         Report.setText("jLabel10");
         Report.setToolTipText("Reportes");
         Report.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Report.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReportMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 12;
         gridBagConstraints.gridy = 0;
@@ -217,6 +240,22 @@ public class MenuMain extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_ExitMouseClicked
 
+    private void ReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportMouseClicked
+        // TODO add your handling code here:  
+        dispose();
+        new Report().Call();
+    }//GEN-LAST:event_ReportMouseClicked
+
+    private void ShopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShopMouseClicked
+        // TODO add your handling code here:
+        dispose();
+        new Ventas().Call();
+    }//GEN-LAST:event_ShopMouseClicked
+
+    private void GraphicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GraphicMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GraphicMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -271,6 +310,23 @@ public class MenuMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 
+    void Call(Usuario us) {
+        u = us;
+        Usuario.setText("");
+        Shop.setText("");
+        Report.setText("");
+        Graphic.setText("");
+        Producto.setText("");
+        Exit.setText("");
+        Usuario.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Usuario.png")));
+        Shop.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Shop.png")));
+        Report.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Report.png")));
+        Graphic.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Graficas.png")));
+        Producto.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Box.png")));
+        Exit.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Salir.png")));
+        this.setVisible(true);
+    }
+    Usuario u;
     void Call() {
         Usuario.setText("");
         Shop.setText("");

@@ -210,9 +210,9 @@ public class Search extends javax.swing.JFrame {
             if(Seleccion.getSelectedItem().equals("Id")){
                 JOptionPane.showMessageDialog(null,"Debe de insertar el id");
             }else if(Seleccion.getSelectedItem().equals("Nombre")){
-                JOptionPane.showMessageDialog(null,"Debe de insertar el id");
+                JOptionPane.showMessageDialog(null,"Debe de insertar el Nombre");
             }else if(Seleccion.getSelectedItem().equals("Marca")){
-                JOptionPane.showMessageDialog(null,"Debe de insertar el id");
+                JOptionPane.showMessageDialog(null,"Debe de insertar la Marca");
             }
         }else{ 
             int cont = 0;

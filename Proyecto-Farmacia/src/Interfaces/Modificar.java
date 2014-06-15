@@ -59,6 +59,7 @@ public class Modificar extends javax.swing.JFrame {
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
+        Lista.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(Lista);
 
         jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -224,6 +225,16 @@ public class Modificar extends javax.swing.JFrame {
                                 + " Marca: "+p.getMarca();
                         if(Lista.getSelectedValue().equals(s1)){              
                             new Mod().SetP(p);
+                        }
+                    }
+                }
+            }else if(Aceptar.getText().equals("Comprar")){
+                if(productos.size()!= 0){
+                    for(Producto p: productos){
+                        String s1 = "Id: "+(id = new Search().SetLength(""+p.getId()))+", Nombre: "+p.getName()+","
+                                + " Marca: "+p.getMarca();
+                        if(Lista.getSelectedValue().equals(s1)){              
+                            new Mod().SetProd(p,true);
                         }
                     }
                 }

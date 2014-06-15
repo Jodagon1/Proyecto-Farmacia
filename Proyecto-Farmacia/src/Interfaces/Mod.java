@@ -8,9 +8,14 @@ package Interfaces;
 
 import Items.Conectar;
 import Pojo.Producto;
+import Pojo.UseUser;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -463,20 +468,62 @@ public class Mod extends javax.swing.JFrame {
         if(!(Name.getText().equals("")&& Cantidad.getText().equals("") && Precio.getText().equals("")
                 && Marca.getText().equals("") && jTextArea1.getText().equals("") && Vias.getSelectedItem().equals("Vias de administracion")
                 && Forma.getSelectedItem().equals("Forma") && Tipo.getSelectedItem().equals("Tipo"))){
-                Producto p = new Producto();
-                p.setName(Name.getText());
-                p.setId(parseInt(jLabel2.getText()));
-                p.setCantidad(parseInt(Cantidad.getText()));
-                p.setPrecio(parseDouble(Precio.getText()));
-                p.setDescripcion(jTextArea1.getText());
-                p.setMarca(Marca.getText());
-                p.setVia((String)Vias.getSelectedItem());
-                p.setForma((String)Forma.getSelectedItem());
-                p.setTipo((String)Tipo.getSelectedItem());
-                Clear();
-                new Conectar().ModificarProd(p);
-                JOptionPane.showMessageDialog(null,"Su producto fue modificado exitosamente");
-                dispose();                
+                if(b == false){
+                    Producto p = new Producto();
+                    p.setName(Name.getText());
+                    p.setId(parseInt(jLabel2.getText()));
+                    p.setCantidad(parseInt(Cantidad.getText()));
+                    p.setPrecio(parseDouble(Precio.getText()));
+                    p.setDescripcion(jTextArea1.getText());
+                    p.setMarca(Marca.getText());
+                    p.setVia((String)Vias.getSelectedItem());
+                    p.setForma((String)Forma.getSelectedItem());
+                    p.setTipo((String)Tipo.getSelectedItem());
+                    Clear();
+                    new Conectar().ModificarProd(p);
+                    JOptionPane.showMessageDialog(null,"Su producto fue modificado exitosamente");
+                    dispose();
+                }else{
+                    List<Producto> p1 = new Conectar().ConexionProd();
+                    for(Producto pd : p1){
+                        String s,s1;
+                        s = new Search().SetLength(""+pd.getId());
+                        s1 = jLabel2.getText();
+                        if(s.equals(s1)){
+                            double x = pd.getPrecio(),x1 = parseDouble(Precio.getText());
+                            double t = (x+x1)/2;
+                            int y = pd.getCantidad(), y1 = parseInt(Cantidad.getText());
+                            int t1 = y+y1;
+                            Producto p = new Producto();
+                            p = pd;
+                            p.setPrecio(t);
+                            p.setCantidad(t1);
+                            Clear();
+                            new Conectar().ModificarProd(p);
+                            Calendar c = Calendar.getInstance();
+                            String Fecha = Integer.toString(c.get(Calendar.DATE));
+                            Fecha+="/";                   
+                            Fecha+= Integer.toString(c.get(Calendar.MONTH)+1);
+                            Fecha+="/";
+                            Fecha+= Integer.toString(c.get(Calendar.YEAR));
+                            String name = null;
+                            try {
+                                name = new UseUser().GetUser();
+                            }catch(IOException e){}
+                            Producto p2 = new Producto();
+                            p2 = pd;
+                            p2.setCantidad(y1);
+                            p2.setPrecio(x1);
+                            new Conectar().InsertCompra(p2, Fecha, name);
+                            JOptionPane.showMessageDialog(null,"Su Compra fue realizada exitosamente");
+                            dispose();   
+                        }
+                    }
+                }                
+        }else if(!(Name.getText().equals("")&& Cantidad.getText().equals("") && Precio.getText().equals("")
+                && Marca.getText().equals("") && jTextArea1.getText().equals("") && Vias.getSelectedItem().equals("Vias de administracion")
+                && Forma.getSelectedItem().equals("Forma") && Tipo.getSelectedItem().equals("Tipo") && b)){
+                
         }else{
             JOptionPane.showMessageDialog(null,"Debe de llenar todos los campos","Informacion Incompleta",JOptionPane.INFORMATION_MESSAGE,null);            
         }
@@ -563,7 +610,31 @@ public class Mod extends javax.swing.JFrame {
         Atras.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/exit.png")));
         this.setVisible(true);
     }
-
+    boolean b = false;
+    void SetProd(Producto p,boolean s){
+        b = s;
+        pd = p;
+        String id;
+        jLabel2.setText((id=new Search().SetLength(""+p.getId())));
+        Name.setText(p.getName());
+        Name.setEditable(false);
+        Marca.setText(p.getMarca());
+        Marca.setEditable(false);
+        Vias.setSelectedItem(p.getVia());
+        Vias.setEnabled(false);
+        Forma.setSelectedItem(p.getForma());
+        Forma.setEnabled(false);
+        Tipo.setSelectedItem(p.getTipo());
+        Tipo.setEnabled(false);
+        Precio.setText(""+p.getPrecio());        
+        Cantidad.setText(""+p.getCantidad());
+        jTextArea1.setText(p.getDescripcion());
+        jTextArea1.setEditable(false);
+        Aceptar.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Ok.png")));
+        Limpiar.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Clean.png")));
+        Atras.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/exit.png")));
+        this.setVisible(true);
+    }
     private void Clear() {
         String id;
         Vias.setSelectedItem("Vias de Administracion");

@@ -7,6 +7,7 @@
 package Interfaces;
 
 import Items.JPanelColor;
+import Pojo.Usuario;
 import javax.swing.ImageIcon;
 
 /**
