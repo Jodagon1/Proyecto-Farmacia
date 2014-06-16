@@ -177,6 +177,7 @@ public class Ventas extends javax.swing.JFrame {
             st.setLength(30);
             u1.setName(st.toString());
             if(u1.getName().equalsIgnoreCase(s1)){
+                JOptionPane.showMessageDialog(this,s1);
                 u = u1;
             }
         }
@@ -184,7 +185,7 @@ public class Ventas extends javax.swing.JFrame {
         Calendar c = Calendar.getInstance();
         String Fecha = Integer.toString(c.get(Calendar.DATE));
         Fecha+="/";                   
-        Fecha+= Integer.toString(c.get(Calendar.MONTH));
+        Fecha+= Integer.toString(c.get(Calendar.MONTH)+1);
         Fecha+="/";
         Fecha+= Integer.toString(c.get(Calendar.YEAR));
         List<Producto> p2 = new ArrayList<>();
@@ -203,14 +204,15 @@ public class Ventas extends javax.swing.JFrame {
                    p1.setCantidad((int)dtm.getValueAt(i,3));                   
                    f.setId(p1.getId());
                    f.setName(p1.getName());
-                   f.setUsuario(u.getName());
+                   s1 = s1.trim();
+                   f.setUsuario(s1);
                    f.setFecha(Fecha);                   
                    f.setMarca(p1.getMarca());
                    f.setCantidad((int)dtm.getValueAt(i, 3));
                    f.setPrecio(p1.getPrecio());
                    f.setTotal((double)dtm.getValueAt(i,5));         
                    fc.add(f);
-                   new Conectar().InsertarVenta(p1, Fecha);
+                   new Conectar().InsertarVenta(p1, Fecha, s1);
                    int x1 = x2-(int)dtm.getValueAt(i,3);
                    prod1.setCantidad(x1);
                    new Conectar().ModificarProd(prod1);
@@ -291,7 +293,7 @@ public class Ventas extends javax.swing.JFrame {
         if(u.isAdministrador()){
             new MenuMain().Call();
         }else{
-            new MenuEmpleado().Call(u);
+            new MenuEmpleado().Call();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -254,6 +254,8 @@ public class MenuMain extends javax.swing.JFrame {
 
     private void GraphicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GraphicMouseClicked
         // TODO add your handling code here:
+        dispose();
+        new Estadisticas().Call();
     }//GEN-LAST:event_GraphicMouseClicked
 
     /**
@@ -310,23 +312,6 @@ public class MenuMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 
-    void Call(Usuario us) {
-        u = us;
-        Usuario.setText("");
-        Shop.setText("");
-        Report.setText("");
-        Graphic.setText("");
-        Producto.setText("");
-        Exit.setText("");
-        Usuario.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Usuario.png")));
-        Shop.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Shop.png")));
-        Report.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Report.png")));
-        Graphic.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Graficas.png")));
-        Producto.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Box.png")));
-        Exit.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Salir.png")));
-        this.setVisible(true);
-    }
-    Usuario u;
     void Call() {
         Usuario.setText("");
         Shop.setText("");

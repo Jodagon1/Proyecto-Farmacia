@@ -9,6 +9,7 @@ package Items;
 import Pojo.Factura;
 import Pojo.Producto;
 import Pojo.Usuario;
+import Pojo.VentasC;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -90,15 +91,60 @@ public class Conectar {
                     + ""+p.getTipo()+"','"+p.getCantidad()+"','"+p.getPrecio()+"','"+p.getDescripcion()+"');");
         }catch(SQLException | ClassNotFoundException e){}
     }
-    public void InsertarVenta(Producto p,String s){
+    public void InsertarVenta(Producto p,String s,String n){
         try{
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost/User","root","Joda");
             Statement st = con.createStatement();
-            st.executeUpdate("Insert into Ventas(Name,Marca,Via,Forma,Tipo,Cantidad,Precio,Fecha) "
+            st.executeUpdate("Insert into Ventas(Name,Marca,Via,Forma,Tipo,Cantidad,Precio,Fecha,Vendedor) "
                     + "Values ('"+p.getName()+"','"+p.getMarca()+"','"+p.getVia()+"','"+p.getForma()+"','"
-                    + ""+p.getTipo()+"','"+p.getCantidad()+"','"+p.getPrecio()+"','"+s+"');");
+                    + ""+p.getTipo()+"','"+p.getCantidad()+"','"+p.getPrecio()+"','"+s+"','"+n+"');");
         }catch(SQLException | ClassNotFoundException e){}
+    }
+    public List<String> GetVendedor(){
+        List<String> s = new ArrayList<>();
+        try{            
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/User","root","Joda");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select vendedor from ventas;");            
+                while(rs.next()){
+                String name = rs.getString(1);
+                s.add(name);
+            }
+        }catch(SQLException | ClassNotFoundException e){}
+        return s;
+    }
+    public List<VentasC> GetVenta(){
+        List<VentasC> vc = new ArrayList<>();
+        try{            
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/User","root","Joda");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select Name,Fecha,Cantidad from ventas;");            
+                while(rs.next()){
+                    VentasC v = new VentasC();
+                    v.setName(rs.getString(1));
+                    v.setFecha(rs.getString(2));
+                    v.setCantidad(rs.getInt(3));
+                    vc.add(v);
+            }
+        }catch(SQLException | ClassNotFoundException e){}
+        return vc;
+    }
+    public List<String> GetFecha(){
+        List<String> fechas = new ArrayList<>();
+        try{            
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/User","root","Joda");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select Fecha from ventas;");            
+                while(rs.next()){
+                String fecha = rs.getString(1);
+                fechas.add(fecha);
+            }
+        }catch(SQLException | ClassNotFoundException e){}
+        return fechas;
     }
     public void ModificarProd(Producto p){
         try{

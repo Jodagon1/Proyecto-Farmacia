@@ -25,6 +25,7 @@ public class Agregar extends javax.swing.JFrame {
      */
     public Agregar() {
         initComponents();
+        setIconImage(new ImageIcon(this.getClass().getResource("/Imagen/capsule.png")).getImage());
     }
 
     /**

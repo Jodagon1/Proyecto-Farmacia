@@ -26,8 +26,10 @@ public class UseUser {
         f1.createNewFile();        
         raf = new RandomAccessFile(f1,"rw"); 
         raf.setLength(0);
+        StringBuffer sb = new StringBuffer(u.getName());
+        sb.setLength(30);        
         raf.seek(0);
-        raf.writeBytes(u.getName());
+        raf.writeBytes(sb.toString());
     }
     public String GetUser()throws IOException{
         File f = new File("C:/Usuario/User.jon");     

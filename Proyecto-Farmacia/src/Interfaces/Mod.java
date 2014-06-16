@@ -35,7 +35,7 @@ public class Mod extends javax.swing.JFrame {
     String [] v = {"Analgésicos","Antibiótico","Vacuna","Antisépticos",
                 "Antiinflamatorios","Antiinflamatorio No Esteroideo","Antiinflamatorio Esteroideo",
                 "Antihistamínicos","Anestésico","Antidepresivo","Diuréticos","Laxantes","Broncodilatador",
-                "Antipirético","Antifúngico"};
+                "Antipirético","Antifúngico","Vitaminas"};
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -510,6 +510,7 @@ public class Mod extends javax.swing.JFrame {
                             try {
                                 name = new UseUser().GetUser();
                             }catch(IOException e){}
+                            name = name.trim();
                             Producto p2 = new Producto();
                             p2 = pd;
                             p2.setCantidad(y1);

@@ -32,7 +32,7 @@ public class Insert extends javax.swing.JFrame {
     String [] v = {"Analgésicos","Antibiótico","Vacuna","Antisépticos",
                 "Antiinflamatorios","Antiinflamatorio No Esteroideo","Antiinflamatorio Esteroideo",
                 "Antihistamínicos","Anestésico","Antidepresivo","Diuréticos","Laxantes","Broncodilatador",
-                "Antipirético","Antifúngico"};
+                "Antipirético","Antifúngico","Vitaminas"};
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

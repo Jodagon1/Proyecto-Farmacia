@@ -157,9 +157,8 @@ public class MenuEmpleado extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
-    Usuario us;
-    void Call(Usuario u) {
-        us = u;
+
+    void Call() {
         jLabel2.setText("");
         jLabel2.setIcon(new ImageIcon(this.getClass().getResource("/Imagen/Shop.png")));
         jLabel5.setText("");

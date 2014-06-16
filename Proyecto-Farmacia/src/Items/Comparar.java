@@ -8,6 +8,8 @@ package Items;
 
 import Pojo.Producto;
 import Pojo.Usuario;
+import static java.lang.Integer.parseInt;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -40,11 +42,12 @@ public class Comparar {
     }
     public Usuario CompararAll(Usuario us,String s){
         int [] datos = new int[4];
+        String name = us.getName().toLowerCase();
         datos[0] = s.length();
         datos[1] = us.getName().length();
         boolean flag = false;
         for(int i = 0; i < (datos[1]-datos[0]);i++){
-            if(us.getName().regionMatches(i, s, 0, datos[0])){
+            if(name.regionMatches(i, s, 0, datos[0])){
                 flag = true;
             }
         }
@@ -52,5 +55,50 @@ public class Comparar {
             us = null;
         }
         return us;
+    }
+    public String Fecha(String s){
+        String f = null;
+	StringTokenizer tokens=new StringTokenizer(s, "/");
+        int ndatos=tokens.countTokens();
+        int[] datos=new int[ndatos];
+        int i=0;
+        while(tokens.hasMoreTokens()){
+            String str=tokens.nextToken();
+            datos[i] = parseInt(str);
+            if(i == 2){
+                f = Date(datos[i-1],datos[i]);
+            }
+            i++;
+        }
+        return f;
+    }
+    public String Date(int x,int y){
+        String mes = null;
+        if(x == 1){
+            mes = "Enero "+y;
+        }else if(x == 2){
+            mes = "Febrero "+y;
+        }else if(x == 3){
+            mes = "Marzo "+y;
+        }else if(x == 4){
+            mes = "Abril "+y;
+        }else if(x == 5){
+            mes = "Mayo "+y;            
+        }else if(x == 6){
+            mes = "Junio "+y;
+        }else if(x == 7){
+            mes = "Julio "+y;
+        }else if(x == 8){
+            mes = "Agosto "+y;
+        }else if(x == 9){
+            mes = "Septiembre "+y;
+        }else if(x == 10){
+            mes = "Octubre "+y;
+        }else if(x == 11){
+            mes = "Noviembre "+y;
+        }else if(x == 12){
+            mes = "Diciembre "+y;
+        }
+        return mes;
     }
 }

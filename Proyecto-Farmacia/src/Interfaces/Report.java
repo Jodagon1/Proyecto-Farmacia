@@ -225,7 +225,7 @@ public class Report extends javax.swing.JFrame {
             JasperPrint p = JasperFillManager.fillReport(reporte, null, c);
             JasperViewer view = new JasperViewer(p,false);
             view.setIconImage(new ImageIcon(this.getClass().getResource("")).getImage());                    
-            view.setTitle("Reporte de Ventas");
+            view.setTitle("Reporte Historico");
             view.setVisible(true);
             view.setExtendedState(MAXIMIZED_BOTH);
         }catch(Exception e){}

@@ -177,7 +177,7 @@ public class Login extends javax.swing.JFrame {
                                 }catch(IOException e){
                                     System.out.println(e.getMessage());}
                                 dispose();
-                                new MenuMain().Call(us);
+                                new MenuMain().Call();
                             }else{
                                 ImageIcon i = new ImageIcon(this.getClass().getResource("/Imagen/Back.jpg"));
                                 JOptionPane.showMessageDialog(null,"Bienvenido","Welcome",JOptionPane.INFORMATION_MESSAGE,i);
@@ -186,7 +186,7 @@ public class Login extends javax.swing.JFrame {
                                 }catch(IOException e){
                                     System.out.println(e.getMessage());}
                                 dispose();                                
-                                new MenuEmpleado().Call(us);                                
+                                new MenuEmpleado().Call();                                
                             }
                         }else{
                             JOptionPane.showMessageDialog(null,"Password Incorrecto");
